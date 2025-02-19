@@ -23,7 +23,7 @@ class User
     public function all()
     {
 
-        $query = "SELECT * FROM " . $this->table . " WHERE deleted_at = NULL";
+        $query = "SELECT * FROM " . $this->table . " WHERE deleted_at IS NULL";
 
         try {
             $stmt = $this->db->prepare($query);
@@ -38,7 +38,7 @@ class User
 
     public function getOne($id)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id = :id AND deleted_at = NULL";
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :id AND deleted_at IS NULL";
 
         try {
             $stmt = $this->db->prepare($query);
@@ -53,7 +53,7 @@ class User
     }
     public function create($data)
     {
-        $query = "INSERT INTO " . $this->table . "(name, last_name, email, password)VALUES(':name', ':last_name', ':email', ':password')";
+        $query = "INSERT INTO " . $this->table . " (name, last_name, email, password)VALUES(:name, :last_name, :email, :password)";
         try {
             $stmt = $this->db->prepare($query);
 
@@ -150,7 +150,7 @@ class User
     ///////////////
     public function verifyUser($email)
     {
-        $query = "SELECT id ,name,last_name,password FROM " . $this->table . " WHERE id = :email AND deleted_at = NULL";
+        $query = "SELECT id ,name,last_name,password FROM " . $this->table . " WHERE id = :email AND deleted_at IS NULL";
 
         try {
             $stmt = $this->db->prepare($query);

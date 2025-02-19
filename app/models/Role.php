@@ -23,7 +23,7 @@ class Role
     public function all()
     {
 
-        $query = "SELECT * FROM ".$this->table. " WHERE deleted_at = NULL";
+        $query = "SELECT * FROM ".$this->table. " WHERE deleted_at IS NULL";
 
         try {
             $stmt = $this->db->prepare($query);
@@ -38,7 +38,7 @@ class Role
 
     public function getOne($id)
     {
-        $query = "SELECT * FROM ".$this->table." WHERE id = :id AND deleted_at = NULL";
+        $query = "SELECT * FROM ".$this->table." WHERE id = :id AND deleted_at IS NULL";
 
         try {
             $stmt = $this->db->prepare($query);
@@ -53,7 +53,7 @@ class Role
     }
     public function create($data)
     {
-        $query = "INSERT INTO " . $this->table . "(name, description password)VALUES(':name', ':description')";
+        $query = "INSERT INTO " . $this->table . "(name, description password)VALUES(:name, :description)";
         try {
             $stmt = $this->db->prepare($query);
 

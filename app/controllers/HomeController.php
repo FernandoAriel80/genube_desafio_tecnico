@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use Exception;
 
-class UserController
+class HomeController
 {
 
     public function index()
@@ -13,8 +13,7 @@ class UserController
 
         try {
             $user_model = new User();
-            //$users = $user_model->all();
-            $users = "usuarios";
+            $users = $user_model->all();
             
             require '../views/home.php';
         } catch (Exception $e) {
@@ -44,7 +43,20 @@ class UserController
                 }
             }
         } catch (Exception $e) {
-            return "Error al obtener los usuarios " . $e->getMessage();
+            return "Error al obtener los usuarios para crear" . $e->getMessage();
+        }
+    }
+
+    public function edit(){
+        try {
+            $id = $_GET["id"];
+
+            $user_model = new User();
+            $user = $user_model->getOne($id);
+
+            require '../views/roles/index.php';
+        } catch (Exception $e) {
+            return "Error al obtener los usuarios para editar " . $e->getMessage();
         }
     }
 }
