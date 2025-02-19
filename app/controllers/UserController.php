@@ -1,23 +1,22 @@
 <?php
 
-require_once '../models/User.php';
+namespace App\Controllers;
+
+use App\Models\User;
+use Exception;
+
 class UserController
 {
-
-    private $user_model;
-
-    public function __construct()
-    {
-        $this->user_model = new User();
-    }
 
     public function index()
     {
 
         try {
-            $users = $this->user_model->all();
-
-            return $users;
+            $user_model = new User();
+            //$users = $user_model->all();
+            $users = "usuarios";
+            
+            require '../views/home.php';
         } catch (Exception $e) {
             return "Error al obtener los usuarios " . $e->getMessage();
         }
@@ -27,11 +26,22 @@ class UserController
     {
         try {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $name = $_POST[""];
-                $last_name = $_POST[""];
-                $email = $_POST[""];
-                $password = $_POST[""];
-                $deleted_at = $_POST[""];
+                $name = $_POST["name"];
+                $last_name = $_POST["last_name"];
+                $email = $_POST["email"];
+                $password = $_POST["password"];
+
+                $user_model = new User();
+
+                $response = $user_model->create([
+                    'name' => $name,
+                    'last_name' => $last_name,
+                    'email' => $email,
+                    'password' => $password,
+                ]);
+                if ($response) {
+                    include '';
+                }
             }
         } catch (Exception $e) {
             return "Error al obtener los usuarios " . $e->getMessage();

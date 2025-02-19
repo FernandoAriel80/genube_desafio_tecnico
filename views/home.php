@@ -1,5 +1,15 @@
-<?php include '../includes/header.php'?>
+<?php
+if (!isset($_SESSION["user"])) {
+    header("Location: /login");
+    exit();
+} 
+?>
+<?php include '../includes/header.php' ?>
 
-    <h1>cuerpo</h1>
 
-<?php include '../includes/footer.php'?>
+<p><?= $users?></p>
+
+<h1>Home</h1>
+
+
+<?php include '../includes/footer.php' ?>

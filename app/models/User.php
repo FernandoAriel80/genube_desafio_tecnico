@@ -1,6 +1,9 @@
 <?php
 
-require_once '../../config/Database.php';
+namespace App\Models;
+use Config\Database;
+use PDO;
+use Exception;
 
 class User
 {
@@ -13,7 +16,7 @@ class User
         if ($this->db == null) {
             $db = new Database();
 
-            $this->db = $db->getConnectio();
+            $this->db = $db->getConnection();
         }
     }
 
@@ -65,21 +68,28 @@ class User
         }
     }
 
-    public function update($data, $id)
+    public function update($id, $data)
     {
-        $query = "UPDATE " . $this->table . " SET name = ':name', last_name = ':last_name', email = ':email', password = ':password' WHERE id = :id";
+        $updates = [];
+        $params = [':id' => $id];
+
+        foreach ($data as $key => $value) {
+
+            $updates[] = "$key = :$key";
+            $params[":$key"] = $value;
+        }
+
+        $query = "UPDATE " . $this->table . " SET " . implode(", ", $updates) . " WHERE id = :id";
+
         try {
             $stmt = $this->db->prepare($query);
-
-            $stmt->bindParam(":name", $data["name"]);
-            $stmt->bindParam(":last_name", $data["last_name"]);
-            $stmt->bindParam(":email", $data["email"]);
-            $stmt->bindParam(":password", $data["password"]);
-            $stmt->bindParam(":id", $id);
-
+            foreach ($params as $param => $value) {
+                $stmt->bindValue($param, $value);
+            }
             return $stmt->execute();
         } catch (Exception $e) {
-            echo "Error modelo al actualizar el usuario" . $e->getMessage();
+            echo "Error modelo al actualizar el usuario: " . $e->getMessage();
+            return false;
         }
     }
 
@@ -134,6 +144,23 @@ class User
             }
         } catch (Exception $e) {
             echo "Error modelo al getOneRole el usuario" . $e->getMessage();
+        }
+    }
+
+    ///////////////
+    public function verifyUser($email)
+    {
+        $query = "SELECT id ,name,last_name,password FROM " . $this->table . " WHERE id = :email AND deleted_at = NULL";
+
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(":email", $email);
+
+            if ($stmt->execute()) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+        } catch (Exception $e) {
+            echo "Error modelo al obtener al usuario" . $e->getMessage();
         }
     }
 }

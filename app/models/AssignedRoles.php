@@ -1,6 +1,9 @@
 <?php
 
-require_once '../../config/Database.php';
+namespace App\Models;
+use Config\Database;
+use PDO;
+use Exception;
 
 class Role
 {
@@ -13,7 +16,7 @@ class Role
         if ($this->db == null) {
             $db = new Database();
 
-            $this->db = $db->getConnectio();
+            $this->db = $db->getConnection();
         }
     }
 

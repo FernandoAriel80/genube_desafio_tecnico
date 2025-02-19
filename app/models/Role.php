@@ -1,6 +1,9 @@
 <?php
 
-require_once '../../config/Database.php';
+namespace App\Models;
+use Config\Database;
+use PDO;
+use Exception;
 
 class Role
 {
@@ -13,7 +16,7 @@ class Role
         if ($this->db == null) {
             $db = new Database();
 
-            $this->db = $db->getConnectio();
+            $this->db = $db->getConnection();
         }
     }
 
@@ -63,19 +66,28 @@ class Role
         }
     }
 
-    public function update($data, $id)
+    public function update($id, $data)
     {
-        $query = "UPDATE " . $this->table . " SET name = ':name', description = ':description' WHERE id = :id";
+        $updates = [];
+        $params = [':id' => $id];
+
+        foreach ($data as $key => $value) {
+    
+            $updates[] = "$key = :$key"; 
+            $params[":$key"] = $value;       
+        }
+
+        $query = "UPDATE " . $this->table . " SET " . implode(", ", $updates) . " WHERE id = :id";
+    
         try {
             $stmt = $this->db->prepare($query);
-
-            $stmt->bindParam(":name", $data["name"]);
-            $stmt->bindParam(":description", $data["description"]);
-            $stmt->bindParam(":id", $id);
-
+            foreach ($params as $param => $value) {
+                $stmt->bindValue($param, $value);
+            }
             return $stmt->execute();
         } catch (Exception $e) {
-            echo "Error modelo al actualizar el rol" . $e->getMessage();
+            echo "Error modelo al actualizar el usuario: " . $e->getMessage();
+            return false;
         }
     }
 
