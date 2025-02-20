@@ -23,7 +23,7 @@ class Role
     public function all()
     {
 
-        $query = "SELECT * FROM ".$this->table. " WHERE deleted_at IS NULL";
+        $query = "SELECT * FROM ".$this->table;
 
         try {
             $stmt = $this->db->prepare($query);
@@ -94,6 +94,20 @@ class Role
     public function delete($id)
     {
         $query = "UPDATE " . $this->table . " SET deleted_at = CURRENT_TIMESTAMP WHERE id = :id";
+        try {
+            $stmt = $this->db->prepare($query);
+
+            $stmt->bindParam(':id', $id);
+
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo "Error modelo al eliminar el rol" . $e->getMessage();
+        }
+    }
+
+    public function enable($id)
+    {
+        $query = "UPDATE " . $this->table . " SET deleted_at = NULL WHERE id = :id";
         try {
             $stmt = $this->db->prepare($query);
 

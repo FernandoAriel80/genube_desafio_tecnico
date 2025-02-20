@@ -11,14 +11,30 @@
             <tr>
                 <td>Rol</td>
                 <td>Descripcion</td>
+                <td>Acción</td>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($roles as $role) { ?>
-                <tr>
-                    <td><?= $role["name"] ?></td>
-                    <td><?= $role["description"] ?></td>
-                </tr>
+                <?php if ($role["deleted_at"] == null) { ?>
+                    <tr>
+                        <td><?= $role["name"] ?></td>
+                        <td><?= $role["description"] ?></td>
+                        <td>
+                            <button><a href='/update-rol?id=<?= $role["id"] ?>'>Actualizar</a></button>
+                            <button><a href='/deshabilitar-rol?id=<?= $role["id"] ?>'>Deshabilitar</a></button>
+                        </td>
+                    </tr>
+                <?php } else { ?>
+                    <tr style="color:red">
+                        <td><?= $role["name"] ?></td>
+                        <td><?= $role["description"] ?></td>
+                        <td>
+                            <button><a href='/update-rol?id=<?= $role["id"] ?>'>Actualizar</a></button>
+                            <button><a href='/habilitar-rol?id=<?= $role["id"] ?>'>Habilitar</a></button>
+                        </td>
+                    </tr>
+                <?php } ?>
             <?php } ?>
         </tbody>
     </table>
@@ -28,11 +44,12 @@
 <?php include '../includes/footer.php' ?>
 
 <style>
-    .div_class{
+    .div_class {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
     /* Estilos generales para la tabla */
     .table_roles {
         width: auto;
@@ -73,7 +90,7 @@
     }
 
     /* Efecto hover sobre las filas */
-   /*  .table_roles tbody tr:hover {
+    /*  .table_roles tbody tr:hover {
         background-color: #f1f1f1;
         cursor: pointer;
     } */

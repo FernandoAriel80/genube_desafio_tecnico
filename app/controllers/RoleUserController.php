@@ -91,7 +91,7 @@ class RoleUserController
                     array_push($current_data, $role);
                 }
             }
-            $response = $assigned_model->remove($data["user_id"], $current_data);
+            $response = $assigned_model->delete($data["user_id"], $current_data);
             if ($response) {
                 header("Location: /permisos-usuarios?id={$data["user_id"]}");
                 exit();

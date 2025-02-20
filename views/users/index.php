@@ -17,24 +17,18 @@
                         <br>
                     <?php } ?>
 
-                    <?php if ($role_id["is_assigned"] == 0) { ?>
-                        <label>
-                            <input type="hidden" name="user_id" value="<?= $id ?>">
-                            <input type="checkbox" name="roles[]" value="<?= $role_id["role_id"] ?>">
-                            <?= $role_id["name"] ?> - <?= $role_id["description"] ?>
-                        </label>
-                        <br>
-                    <?php } ?>
                 <?php } ?>
 
                 <?php foreach ($roles as $role) { ?>
-                    <?php if (!in_array($role['id'], $role_db)) { ?>
-                        <label>
-                            <input type="hidden" name="user_id" value="<?= $id ?>">
-                            <input type="checkbox" name="roles[]" value="<?= $role['id'] ?>">
-                            <?= $role["name"] ?> - <?= $role["description"] ?>
-                        </label>
-                        <br>
+                    <?php if ($role['deleted_at'] == null) { ?>
+                        <?php if (!in_array($role['id'], $role_db)) { ?>
+                            <label>
+                                <input type="hidden" name="user_id" value="<?= $id ?>">
+                                <input type="checkbox" name="roles[]" value="<?= $role['id'] ?>">
+                                <?= $role["name"] ?> - <?= $role["description"] ?>
+                            </label>
+                            <br>
+                        <?php } ?>
                     <?php } ?>
                 <?php } ?>
             </div>

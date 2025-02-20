@@ -22,7 +22,7 @@ if ($request_url == "/permisos-usuarios") {
     $roleUserController = new RoleUserController();
     $roleUserController->index();
   }
-}elseif ($request_url == "/asignar-permisos") {
+} elseif ($request_url == "/asignar-permisos") {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $roleUserController = new RoleUserController();
     $roleUserController->store();
@@ -32,13 +32,34 @@ if ($request_url == "/permisos-usuarios") {
 if ($request_url == "/ver-roles") {
   $roleController = new RoleController();
   $roleController->index();
-}elseif ($request_url == "/crear-rol") {
+} elseif ($request_url == "/crear-rol") {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $roleController = new RoleController();
     $errors = $roleController->store();
   }
   require "../views/roles/create.php";
-}/* else {
+} elseif ($request_url == "/update-rol") {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $roleController = new RoleController();
+    $roleController->update();
+  } else {
+    $roleController = new RoleController();
+    $roleController->edit();
+  }
+} elseif ($request_url == "/deshabilitar-rol") {
+  if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $roleController = new RoleController();
+    $roleController->disable();
+  }
+} elseif ($request_url == "/habilitar-rol") {
+  if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $roleController = new RoleController();
+    $roleController->enable();
+  }
+}
+
+
+/* else {
   http_response_code(404);
 
   echo "ruta no existe";

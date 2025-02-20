@@ -41,9 +41,8 @@ class AssignedRole
     }
 
 
-    public function remove($userId, $roleIds)
+    public function delete($userId, $roleIds)
     {
-
         // Construir placeholders para cada role_id en el array
         $placeholders = implode(',', array_fill(0, count($roleIds), '?'));
 
@@ -59,12 +58,31 @@ class AssignedRole
     }
 
     // Eliminar la asignación de un rol a un usuario
-    /*  public function remove($userId, $roleId)
+    public function remove($id)
     {
-        $query = "UPDATE " . $this->table . " SET is_assigned = 0 WHERE user_id = :user_id AND role_id = :role_id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->bindParam(':role_id', $roleId);
-        return $stmt->execute();
-    } */
+        try {
+            $query = "UPDATE " . $this->table . " SET is_assigned = 0 WHERE role_id = :id";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(":id",$id);
+
+            return $stmt->execute();
+        } catch (Exception $e) {
+            return "Error al eleminar un rol" . $e->getMessage();
+        }
+    }
+
+    public function enable($id)
+    {
+        try {
+            $query = "UPDATE " . $this->table . " SET is_assigned = 1 WHERE role_id = :id";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(":id",$id);
+
+            return $stmt->execute();
+        } catch (Exception $e) {
+            return "Error al eleminar un rol" . $e->getMessage();
+        }
+    }
 }
