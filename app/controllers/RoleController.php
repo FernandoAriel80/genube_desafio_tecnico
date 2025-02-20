@@ -15,7 +15,7 @@ class RoleController
         require "../views/roles/index.php";
     }
 
-    public function create()
+    public function store()
     {
         $data = [
             "nombre" => $_POST["name"],

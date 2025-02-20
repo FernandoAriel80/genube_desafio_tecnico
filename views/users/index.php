@@ -2,18 +2,45 @@
 
 <h1>index de usuarios con roles</h1>
 <a href="/">ir a home</a>
-<br>
-<!-- <a href="/asignar-permisos">asignar permisos al usuario</a> -->
-<br>
 
 <div>
-    <?php foreach ($roles as $role) { ?>
-        <input type="checkbox" id="checks" name="vehicle1" value="Bike">
-        <tr>
-            <td><?= $role["name"] ?></td>
-            <td><?= $role["description"] ?></td>
-        </tr>
-    <?php } ?>
+    <form action="/asignar-permisos" method="post">
+        <div>
+            <?php foreach ($user_roles["roles"] as $role_id) { ?>
+                <?php if ($role_id["is_assigned"] == 1) { ?>
+                    <label>
+                        <input type="hidden" name="user_id" value="<?= $id ?>">
+                        <input type="checkbox" name="roles[]" value="<?= $role_id[0]["id"] ?>" checked>
+                        <?= $role_id["name"] ?> - <?= $role_id["description"] ?>
+                    </label>
+                    <br>
+                <?php } ?>
+
+                <!-- //////////////////// -->
+                <?php if ($role_id["is_assigned"] == 0) { ?>
+                    <label>
+                        <input type="hidden" name="user_id" value="<?= $id ?>">
+                        <input type="checkbox" name="roles[]" value="<?= $role_id[0]["id"] ?>">
+                        <?= $role_id["name"] ?> - <?= $role_id["description"] ?>
+                    </label>
+                    <br>
+                <?php } ?>
+            <?php } ?>
+            <!-- //////////////// -->
+            <?php foreach ($roles as $role) { ?>
+                <?php if (!in_array($role['id'], $roles_id)) { ?>
+                    <label>
+                        <input type="hidden" name="user_id" value="<?= $id ?>">
+                        <input type="checkbox" name="roles[]" value="<?= $role['id'] ?>">
+                        <?= $role["name"] ?> - <?= $role["description"] ?>
+                    </label>
+                    <br>
+                <?php } ?>
+            <?php } ?>
+
+        </div>
+        <input type="submit" value="Guardar">
+    </form>
 </div>
 
 <div class="div_class">
@@ -25,17 +52,26 @@
                 <td> Nombre</td>
                 <td> Apellido</td>
                 <td> Correo</td>
+                <td>Roles</td>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><?= $user["id"] ?></td>
-                <td><?= $user["name"] ?></td>
-                <td><?= $user["last_name"] ?></td>
-                <td><?= $user["email"] ?></td>
+                <td><?= $user_roles["user"]["id"] ?></td>
+                <td><?= $user_roles["user"]["name"] ?></td>
+                <td><?= $user_roles["user"]["last_name"] ?></td>
+                <td><?= $user_roles["user"]["email"] ?></td>
+                <td>
+                    <?php foreach ($user_roles["roles"] as $role) {
+                        if ($role["is_assigned"] == 1) {
+                            echo " " . $role["name"];
+                        }
+                    } ?>
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
 
+<?php //var_dump($roles_id); ?>
 <?php include '../includes/footer.php' ?>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Config\Database;
 use PDO;
 use Exception;
@@ -127,23 +128,34 @@ class User
 
     public function getOneRole($id)
     {
-        $query = " SELECT u.*, r.*FROM " . $this->table . " u 
-        JOIN assigned_roles ar ON ar.id = u.id
-        JOIN roles r ON r.id = ar.id
-        WHERE u.id = :id
-        AND ar.is_assigned = 1";
+        $query1 = "SELECT u.* FROM " . $this->table . " u 
+            JOIN assigned_roles ar ON ar.user_id = u.id
+            JOIN roles r ON r.id = ar.role_id
+            WHERE ar.user_id = :id
+            LIMIT 1";
+
+        $query2 = "SELECT r.* ,ar.* FROM roles r 
+            JOIN assigned_roles ar ON ar.role_id = r.id
+            WHERE ar.user_id = :id";
 
         try {
+            $stmt1 = $this->db->prepare($query1);
+            $stmt1->bindParam(":id", $id);
+            $stmt1->execute();
+            $user = $stmt1->fetch(PDO::FETCH_ASSOC); 
 
-            $stmt = $this->db->prepare($query);
+            $stmt2 = $this->db->prepare($query2);
+            $stmt2->bindParam(":id", $id);
+            $stmt2->execute();
+            $roles = $stmt2->fetchAll(PDO::FETCH_ASSOC); 
 
-            $stmt->bindParam(":id", $id);
-
-            if ($stmt->execute()) {
-                return $stmt->fetch(PDO::FETCH_ASSOC);
-            }
+            return [
+                "user" => $user ?: [],  
+                "roles" => $roles       
+            ];
         } catch (Exception $e) {
-            echo "Error modelo al getOneRole el usuario" . $e->getMessage();
+            echo "Error en getOneRole: " . $e->getMessage();
+            return []; 
         }
     }
 

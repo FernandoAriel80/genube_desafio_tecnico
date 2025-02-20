@@ -17,7 +17,7 @@ class AuthController
                 "clave" => $_POST["password"],
                 "confirmacion" => $_POST["password_confirm"]
             ];
-            $validation = [];
+            /* $validation = [];
             foreach ($data as $key => $value) {
                 if ($data[$key] == "") {
                     array_push($validation, "El $key es requerido.");
@@ -32,7 +32,7 @@ class AuthController
             }
             if (empty($validation) == true) {
                 return $validation;
-            }
+            } */
 
             $user_model = new User();
 

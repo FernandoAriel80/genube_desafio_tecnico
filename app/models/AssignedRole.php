@@ -5,7 +5,7 @@ use Config\Database;
 use PDO;
 use Exception;
 
-class Role
+class AssignedRole
 {
     private $db;
     private $table;
@@ -20,14 +20,25 @@ class Role
         }
     }
 
-    public function assign($userId, $roleId)
+    public function assign($userId, $roleIds)
     {
-        $query = "INSERT INTO " . $this->table . " (user_id, role_id) VALUES (:user_id, :role_id)";
+        $query = "INSERT INTO " . $this->table . " (user_id, role_id) VALUES ";
+        
+        $values = [];
+        $params = [];
+    
+        foreach ($roleIds as $index => $roleId) {
+            $values[] = "(:user_id_$index, :role_id_$index)";
+            $params[":user_id_$index"] = $userId;
+            $params[":role_id_$index"] = $roleId;
+        }
+    
+        $query .= implode(", ", $values);
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->bindParam(':role_id', $roleId);
-        return $stmt->execute();
+    
+        return $stmt->execute($params);
     }
+    
 
     // Eliminar la asignación de un rol a un usuario
     public function remove($userId, $roleId)

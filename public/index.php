@@ -24,8 +24,8 @@ if ($request_url == "/permisos-usuarios") {
   }
 }elseif ($request_url == "/asignar-permisos") {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $roleController = new RoleController();
-    //$errors = $roleController->create();
+    $roleUserController = new RoleUserController();
+    $roleUserController->store();
   }
   require "../views/users/assign.php";
 }
@@ -36,10 +36,14 @@ if ($request_url == "/ver-roles") {
 }elseif ($request_url == "/crear-rol") {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $roleController = new RoleController();
-    $errors = $roleController->create();
+    $errors = $roleController->store();
   }
   require "../views/roles/create.php";
-}
+}/* else {
+  http_response_code(404);
+
+  echo "ruta no existe";
+} */
 
 
 
@@ -53,11 +57,4 @@ if ($request_url == "/ver-roles") {
     $errors =  $authController->register();
   }
   require '../views/auth/register.php';
-} */
-
-
-/*  else {
-  http_response_code(404);
-
-  echo "ruta no existe";
 } */
