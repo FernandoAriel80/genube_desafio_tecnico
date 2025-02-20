@@ -3,9 +3,10 @@ require_once '../autoload.php';
 
 use App\Controllers\HomeController;
 use App\Controllers\RoleUserController;
+use App\Controllers\RoleController;
 use App\Controllers\AuthController;
 
-session_start();
+//session_start();
 
 
 
@@ -16,16 +17,32 @@ if ($request_url == "/" || $request_url == "/home") {
   $homeController->index();
 }
 
-if ($request_url == "/permisos") {
+if ($request_url == "/permisos-usuarios") {
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $roleUserController = new RoleUserController();
     $roleUserController->index();
   }
+}elseif ($request_url == "/asignar-permisos") {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $roleController = new RoleController();
+    //$errors = $roleController->create();
+  }
+  require "../views/users/assign.php";
 }
 
-if ($request_url == "/cargar-roles") {
+if ($request_url == "/ver-roles") {
+  $roleController = new RoleController();
+  $roleController->index();
+}elseif ($request_url == "/crear-rol") {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $roleController = new RoleController();
+    $errors = $roleController->create();
+  }
   require "../views/roles/create.php";
 }
+
+
+
 /* if ($request_url == "/inicia-sesion") {
   $authController = new AuthController();
   $authController->login();

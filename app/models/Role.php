@@ -53,7 +53,7 @@ class Role
     }
     public function create($data)
     {
-        $query = "INSERT INTO " . $this->table . "(name, description password)VALUES(:name, :description)";
+        $query = "INSERT INTO " . $this->table . "(name, description)VALUES(:name, :description)";
         try {
             $stmt = $this->db->prepare($query);
 

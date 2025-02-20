@@ -6,7 +6,7 @@
 ?>
 <?php include '../includes/header.php' ?>
 
-<a href="/cargar-roles">cargar roles</a>
+<a href="/ver-roles">cargar roles</a>
 
 <h1>TODOS LOS USUARIOS</h1>
 
@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             <?php foreach ($users as $user) { ?>
-                <tr onclick="window.location='/permisos?id=<?= $user['id'] ?>';">
+                <tr onclick="window.location='/permisos-usuarios?id=<?= $user['id'] ?>';">
                     <td><?= $user["id"] ?></td>
                     <td><?= $user["name"] ?></td>
                     <td><?= $user["last_name"] ?></td>

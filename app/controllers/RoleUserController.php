@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Exception;
 
 class RoleUserController
@@ -17,7 +18,10 @@ class RoleUserController
             $user_model = new User();
             $user = $user_model->getOne($id);
 
-            require '../views/roles/index.php';
+            $role_model = new Role();
+            $roles = $role_model->all();
+
+            require '../views/users/index.php';
         } catch (Exception $e) {
             return "Error al obtener los usuarios para editar " . $e->getMessage();
         }
