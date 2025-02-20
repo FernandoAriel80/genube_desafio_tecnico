@@ -27,7 +27,6 @@ if ($request_url == "/permisos-usuarios") {
     $roleUserController = new RoleUserController();
     $roleUserController->store();
   }
-  //require "../views/users/assign.php";
 }
 
 if ($request_url == "/ver-roles") {

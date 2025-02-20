@@ -19,16 +19,23 @@ class RoleUserController
             $id = $_GET["id"];
 
             $user_model = new User();
-            $user_roles = $user_model->getOneRole($id);
+            $user_roles = [];
+            $current_user = $user_model->getOneRole($id);
+
+            if (empty($current_user["roles"])) {
+                $user_roles = $user_model->getOne($id);
+            } else {
+                $user_roles = $current_user;
+                $role_db = [];
+                foreach ($user_roles["roles"] as $role) {
+                    array_push($role_db, $role["role_id"]);
+                }
+            }
 
             $role_model = new Role();
             $roles = $role_model->all();
 
-            $role_db = [];
 
-            foreach ($user_roles["roles"] as $role) {
-                array_push($role_db, $role["role_id"]);
-            }
             require '../views/users/index.php';
         } catch (Exception $e) {
             return "Error al obtener los usuarios y roles." . $e->getMessage();
