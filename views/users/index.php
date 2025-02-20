@@ -10,7 +10,7 @@
                 <?php if ($role_id["is_assigned"] == 1) { ?>
                     <label>
                         <input type="hidden" name="user_id" value="<?= $id ?>">
-                        <input type="checkbox" name="roles[]" value="<?= $role_id[0]["id"] ?>" checked>
+                        <input type="checkbox" name="roles[]" value="<?= $role_id["role_id"] ?>" checked>
                         <?= $role_id["name"] ?> - <?= $role_id["description"] ?>
                     </label>
                     <br>
@@ -20,7 +20,7 @@
                 <?php if ($role_id["is_assigned"] == 0) { ?>
                     <label>
                         <input type="hidden" name="user_id" value="<?= $id ?>">
-                        <input type="checkbox" name="roles[]" value="<?= $role_id[0]["id"] ?>">
+                        <input type="checkbox" name="roles[]" value="<?= $role_id["role_id"] ?>">
                         <?= $role_id["name"] ?> - <?= $role_id["description"] ?>
                     </label>
                     <br>
@@ -28,7 +28,7 @@
             <?php } ?>
             <!-- //////////////// -->
             <?php foreach ($roles as $role) { ?>
-                <?php if (!in_array($role['id'], $roles_id)) { ?>
+                <?php if (!in_array($role['id'], $role_db)) { ?>
                     <label>
                         <input type="hidden" name="user_id" value="<?= $id ?>">
                         <input type="checkbox" name="roles[]" value="<?= $role['id'] ?>">
@@ -37,7 +37,6 @@
                     <br>
                 <?php } ?>
             <?php } ?>
-
         </div>
         <input type="submit" value="Guardar">
     </form>
@@ -73,5 +72,6 @@
     </table>
 </div>
 
-<?php //var_dump($roles_id); ?>
+<?php //var_dump($user_model); 
+?>
 <?php include '../includes/footer.php' ?>
