@@ -3,6 +3,8 @@
 <h1>Índice de Usuarios con Roles</h1>
 <div>
     <form action="/asignar-permisos" method="post">
+
+    <h4>Roles</h4>
         <?php if (!empty($current_user["roles"])) { ?>
             <div>
                 <?php foreach ($user_roles["roles"] as $role_id) { ?>
@@ -42,7 +44,9 @@
                 <?php } ?>
             </div>
         <?php } ?>
-        <input type="submit" value="Guardar">
+        <?php if (!empty($roles)) { ?>
+            <input type="submit" value="Guardar">
+        <?php } ?>
     </form>
 </div>
 
@@ -88,7 +92,6 @@
 <?php include '../includes/footer.php' ?>
 
 <style>
-
     a {
         color: #007bff;
         text-decoration: none;

@@ -48,11 +48,6 @@ class RoleUserController
             "roles_id" => $_POST["roles"],
         ];
 
-        /* if (empty($data["roles_id"])) {
-            header("Location: /permisos-usuarios?id={$data["user_id"]}");
-            exit();
-        }  */
-
         $user_model = new User();
         $user_roles = $user_model->getOneRole($data["user_id"]);
 
