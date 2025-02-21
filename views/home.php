@@ -1,14 +1,5 @@
-<?php
-/* if (!isset($_SESSION["user"])) {
-    header("Location: /inicia-sesion");
-    exit();
-}  */
-?>
-<?php include '../includes/header.php' ?>
 
-<a href="/ver-roles">cargar roles</a>
-<br>
-<a href="/crear-usuario">cargar usuario</a>
+<?php include '../includes/header.php' ?>
 
 <h1>TODOS LOS USUARIOS</h1>
 
@@ -32,8 +23,8 @@
                     <td><?= $user["last_name"] ?></td>
                     <td><?= $user["email"] ?></td>
                     <td>
-                        <button class="btn_greed"><a href='/update-rol?id=<?= $user["id"] ?>'>Actualizar</a></button>
-                        <button class="btn_red"><a href='/deshabilitar-rol?id=<?= $user["id"] ?>'>Eliminar</a></button>
+                        <button class="btn_greed"><a href='/actualizar-usuario?id=<?= $user["id"] ?>'>Actualizar</a></button>
+                        <button class="btn_red"><a href='/eliminar-usuario?id=<?= $user["id"] ?>'>Eliminar</a></button>
                     </td>
                 </tr>
             <?php } ?>
@@ -89,34 +80,34 @@
 
     /* //////////// */
     /* Estilo base para los botones */
-    button{
+    button {
         color: white;
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
     }
-    .btn_greed{
+
+    .btn_greed {
         background-color: #28a745;
     }
-    .btn_red{
-        background-color:rgb(184, 9, 9); 
+
+    .btn_red {
+        background-color: rgb(184, 9, 9);
     }
-    
-    button:hover{
-        background-color:rgb(221, 221, 221);
+
+    .btn_greed:hover {
+        background-color:rgb(101, 233, 131);
     }
-    button:hover{
-        background-color:rgb(221, 221, 221);
+
+    .btn_red:hover {
+        background-color: rgb(235, 107, 107)
     }
-    button a{
+
+    button a {
         color: white;
         text-decoration: none;
     }
-    
 </style>
-
-<h1>Home</h1>
-
 
 <?php include '../includes/footer.php' ?>

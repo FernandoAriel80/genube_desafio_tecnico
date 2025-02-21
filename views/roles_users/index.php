@@ -1,8 +1,6 @@
 <?php include '../includes/header.php' ?>
 
 <h1>Índice de Usuarios con Roles</h1>
-<a href="/">Ir a Home</a>
-
 <div>
     <form action="/asignar-permisos" method="post">
         <?php if (!empty($current_user["roles"])) { ?>
@@ -90,16 +88,6 @@
 <?php include '../includes/footer.php' ?>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-    }
-
-    h1 {
-        color: #333;
-    }
 
     a {
         color: #007bff;

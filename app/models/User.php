@@ -96,7 +96,7 @@ class User
 
     public function delete($id)
     {
-        $query = "UPDATE " . $this->table . " SET deleted_at = CURRENT_TIMESTAMP WHERE id = :id";
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         try {
             $stmt = $this->db->prepare($query);
 

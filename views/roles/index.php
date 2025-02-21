@@ -1,9 +1,8 @@
 <?php include '../includes/header.php' ?>
 
-<h1>index de roles</h1>
-<a href="/">ir a home</a>
-<br>
-<a href="/crear-rol">crear rol</a>
+<h1>Roles</h1>
+
+<a class="btn-crea-rol" href="/crear-rol">Crear Rol</a>
 
 <div class="div_class">
     <table class="table_roles">
@@ -21,8 +20,8 @@
                         <td><?= $role["name"] ?></td>
                         <td><?= $role["description"] ?></td>
                         <td>
-                            <button><a href='/update-rol?id=<?= $role["id"] ?>'>Actualizar</a></button>
-                            <button><a href='/deshabilitar-rol?id=<?= $role["id"] ?>'>Deshabilitar</a></button>
+                            <button class="btn_greed"><a href='/update-rol?id=<?= $role["id"] ?>'>Actualizar</a></button>
+                            <button class="btn_red"><a href='/deshabilitar-rol?id=<?= $role["id"] ?>'>Deshabilitar</a></button>
                         </td>
                     </tr>
                 <?php } else { ?>
@@ -30,8 +29,8 @@
                         <td><?= $role["name"] ?></td>
                         <td><?= $role["description"] ?></td>
                         <td>
-                            <button><a href='/update-rol?id=<?= $role["id"] ?>'>Actualizar</a></button>
-                            <button><a href='/habilitar-rol?id=<?= $role["id"] ?>'>Habilitar</a></button>
+                            <button class="btn_greed"><a href='/update-rol?id=<?= $role["id"] ?>'>Actualizar</a></button>
+                            <button class="btn_blue"><a href='/habilitar-rol?id=<?= $role["id"] ?>'>Habilitar</a></button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -89,9 +88,54 @@
         border-bottom: 2px solid #009879;
     }
 
-    /* Efecto hover sobre las filas */
-    /*  .table_roles tbody tr:hover {
-        background-color: #f1f1f1;
+    button {
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
         cursor: pointer;
-    } */
+    }
+
+    .btn_greed {
+        background-color: #28a745;
+    }
+
+    .btn_red {
+        background-color: rgb(184, 9, 9);
+    }
+
+    .btn_greed:hover {
+        background-color: rgb(101, 233, 131);
+    }
+
+    .btn_red:hover {
+        background-color: rgb(235, 107, 107);
+    }
+
+    .btn_blue {
+        background-color: blue;
+    }
+
+    .btn_blue:hover {
+        background-color: rgb(83, 109, 228);
+    }
+
+    button a {
+        color: white;
+        text-decoration: none;
+    }
+
+    /* //////////// */
+    .btn-crea-rol {
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: rgb(38, 62, 168);
+    }
+
+    .btn-crea-rol:hover {
+        background-color: rgb(83, 109, 228);
+    }
 </style>

@@ -1,7 +1,6 @@
 <?php include '../includes/header.php' ?>
 
-<h1>crear roles</h1>
-<a href="/">ir a home</a>
+<h1>Crear Roles</h1>
 
 <div class="form-container">
     <form action="#" method="post">
@@ -76,7 +75,6 @@ if (!empty($errors)) { // Verifica si el array no está vacío
         background-color: #007f63;
     }
 
-    /* Placeholder */
     .form-container input::placeholder {
         color: #999;
     }

@@ -1,15 +1,16 @@
 <?php include '../includes/header.php' ?>
 
-<h1>Crear Usuarios</h1>
+<h1>Actualizar Usuario</h1>
 
 <div>
     <div class="div_form">
-        <form action="/crear-usuario" method="POST">
-            <input type="text" name="name" placeholder="Nombre" required>
-            <input type="text" name="last_name" placeholder="Apellido" required>
-            <input type="email" name="email" placeholder="Correo" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="password" name="password_confirm" placeholder="Confirmar Contraseña" required>
+        <form action="#" method="POST">
+            <input type="hidden" name="id" value="<?= $user["id"] ?>">
+            <input type="text" name="name" placeholder="Nombre" value="<?= $user["name"] ?>" required>
+            <input type="text" name="last_name" placeholder="Apellido" value="<?= $user["last_name"] ?>" required>
+            <input type="email" name="email" placeholder="Correo" value="<?= $user["email"] ?>" required>
+            <input type="password" name="password" placeholder="Contraseña">
+            <input type="password" name="password_confirm" placeholder="Confirmar Contraseña">
             <input type="submit" name="btn_register">
         </form>
         <?php
@@ -23,7 +24,6 @@
         ?>
     </div>
 </div>
-
 <style>
     .div_form {
         max-width: 400px;
@@ -84,20 +84,6 @@
 
     .error_li {
         color: red;
-    }
-
-    /* //////////// */
-    .btn-crea-usuario {
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: rgb(38, 62, 168);
-    }
-
-    .btn-crea-usuario:hover {
-        background-color: rgb(83, 109, 228);
     }
 </style>
 
