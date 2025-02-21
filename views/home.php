@@ -7,6 +7,8 @@
 <?php include '../includes/header.php' ?>
 
 <a href="/ver-roles">cargar roles</a>
+<br>
+<a href="/crear-usuario">cargar usuario</a>
 
 <h1>TODOS LOS USUARIOS</h1>
 
@@ -19,6 +21,7 @@
                 <td> Nombre</td>
                 <td> Apellido</td>
                 <td> Correo</td>
+                <td>Acción</td>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +31,10 @@
                     <td><?= $user["name"] ?></td>
                     <td><?= $user["last_name"] ?></td>
                     <td><?= $user["email"] ?></td>
+                    <td>
+                        <button class="btn_greed"><a href='/update-rol?id=<?= $user["id"] ?>'>Actualizar</a></button>
+                        <button class="btn_red"><a href='/deshabilitar-rol?id=<?= $user["id"] ?>'>Eliminar</a></button>
+                    </td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -79,6 +86,34 @@
         background-color: #f1f1f1;
         cursor: pointer;
     }
+
+    /* //////////// */
+    /* Estilo base para los botones */
+    button{
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn_greed{
+        background-color: #28a745;
+    }
+    .btn_red{
+        background-color:rgb(184, 9, 9); 
+    }
+    
+    button:hover{
+        background-color:rgb(221, 221, 221);
+    }
+    button:hover{
+        background-color:rgb(221, 221, 221);
+    }
+    button a{
+        color: white;
+        text-decoration: none;
+    }
+    
 </style>
 
 <h1>Home</h1>

@@ -5,6 +5,7 @@ use App\Controllers\HomeController;
 use App\Controllers\RoleUserController;
 use App\Controllers\RoleController;
 use App\Controllers\AuthController;
+use App\Controllers\UserController;
 
 //session_start();
 
@@ -58,7 +59,13 @@ if ($request_url == "/ver-roles") {
   }
 }
 
-
+if ($request_url == "/crear-usuario") {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $userController = new UserController();
+    $errors = $userController->store();
+  }
+  include '../views/users/create.php';
+}
 /* else {
   http_response_code(404);
 

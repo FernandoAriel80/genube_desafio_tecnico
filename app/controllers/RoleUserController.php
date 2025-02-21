@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Role;
 
 use App\Models\AssignedRole;
-use DateTime;
 use Exception;
 
 class RoleUserController
@@ -36,7 +35,7 @@ class RoleUserController
             $roles = $role_model->all();
 
 
-            require '../views/users/index.php';
+            require '../views/roles_users/index.php';
         } catch (Exception $e) {
             return "Error al obtener los usuarios y roles." . $e->getMessage();
         }
@@ -97,46 +96,5 @@ class RoleUserController
                 exit();
             }
         }
-
-        //print_r($no_estan);
-        //var_dump($_POST["roles"]);
-        /*    try {
-
-            //$user_model = new User();
-            //$user_roles = $user_model->getOneRole($data);
-
-            $current_data = [];
-            $assigned_model = new AssignedRole();
-
-            if (count($data["roles_id"]) > count($data["role_db"])) {
-                foreach ($data["roles_id"] as $role) {
-                    if (!in_array($role, $data["role_db"])) {
-                        array_push($current_data, $role);
-                    }
-                }
-
-                $response = $assigned_model->assign($data["user_id"], $current_data);
-                if ($response) {
-                    header("Location: /permisos-usuarios?id={$data["user_id"]}");
-                    exit();
-                }
-
-            } else {
-                foreach ($data["role_db"] as $role) {
-                    if (!in_array($role, $data["roles_id"])) {
-                        array_push($current_data, $role);
-                    }
-                }
-                $response = $assigned_model->remove($data["user_id"], $current_data);
-                if ($response) {
-                    header("Location: /permisos-usuarios?id={$data["user_id"]}");
-                    exit();
-                }
-            }
-        } catch (Exception $e) {         
-            return "Error al guardar usuarios y sus roles" . $e->getMessage();     
-        } */
     }
-
-    public function edit() {}
 }
